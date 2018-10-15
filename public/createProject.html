@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Project</title>
+</head>
+<body>
+	<ul id="projects">
+	</ul>
+	<script>
+		let socket = new WebSocket('ws://127.0.0.1:1337');
+		window.WebSocket = window.WebSocket || window.MozWebSocket;
+		if (!window.WebSocket) {
+		}
+		socket.onopen=()=>{socket.send({request:"projects"})};
+		let div = document.getElementById('hola');
+		socket.onmessage = message => {
+			try {
+				div.innerHTML = message.data.projects.map(e=>{
+					return `<li>${e.name}</li>`
+				}).join("");
+			} catch(err){
+				alert(err);
+			}
+		};
+		socket.onclose=()=>{
+		}
+		let input = document.getElementById("text");
+		function send(){
+			socket.send(input.value);
+		}
+	</script>
+</body>
+</html>

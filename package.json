@@ -1,0 +1,12 @@
+{
+  "name": "editor-multiuser",
+  "version": "1.0.0",
+  "description": "A Simple code editor online",
+  "main": "index.js",
+  "author": "David Gonzalez",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3",
+    "websocket": "^1.0.28"
+  }
+}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Code Highlights</title>
+	<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  	<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  	<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+	<script src="lib/codemirror.js"></script>
+	<link rel="stylesheet" href="lib/codemirror.css">
+	<link rel="stylesheet" href="theme/darcula.css">
+	<script src="mode/javascript/javascript.js"></script>
+	<script src="keymap/sublime.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+	<script type="text/babel" src="/App.jsx"></script>
+	<script type="text/babel">
+		let dom = document.getElementById("app");
+		ReactDOM.render(<App/>, dom)
+	</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Folder Test</title>
+</head>
+<body>
+	<div id="folders">
+		<span>Project Folders</span>
+		<ul id="entry"></ul>
+	</div>
+	<style>
+	</style>
+	<script>
+		let folders = [
+			{
+				public:[
+					"index.html",
+					{
+						js:[
+							"App.js"
+						]
+					},
+					{
+						css:[
+							"index.css"
+						]
+					}
+				],
+				project:[
+					"test.txt",
+					{
+						app:[
+							"Angular.ts",
+							{
+								assets:[
+									{
+										css:[
+											"Index.css"
+										],
+										js:[
+											"App.js"
+										],
+										images:[
+											"Main.jpg",
+											{
+												testing:[
+													"testImage.jpg"
+												]
+											}
+										]
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			"index.js",
+			"package.json"
+		]
+		var folderList = document.getElementById('entry');
+		initialMapping(folders, folderList);
+
+		function initialMapping(data, folder){
+			if (typeof data !== "string") {
+				if (data.length > 0) {
+					data.forEach(e=>{
+						switch (typeof e){
+							case "object":
+								jsonHandle(e, folder);
+								break;
+							case "string":
+								stringHandle(e, folder);
+								break;
+							default:
+								break;
+						}
+					})
+				}
+			}
+		}
+		function jsonHandle(data, folder) {
+			let keys = Object.keys(data);
+			keys.forEach(e=>{
+				folder.innerHTML += `<li>
+					<span class="folder">${e}</span>
+					<ul class="folder-${e}"></ul>
+				</li>`
+				let newFolder = document.getElementsByClassName(`folder-${e}`)
+				initialMapping(data[e], newFolder[newFolder.length - 1]);
+			})
+		}
+		function stringHandle(data, folder){
+			console.log(data);
+			folder.innerHTML += `<li class="file">${data}</li>`
+		}
+	</script>
+</body>
+</html>

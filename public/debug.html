@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Debug Test</title>
+</head>
+<body>
+	<textarea id="text"></textarea>
+	<button onclick="send()">Enviar</button>
+	<div id="hola"></div>
+	<script>
+		let socket = new WebSocket('ws://127.0.0.1:1337')
+		window.WebSocket = window.WebSocket || window.MozWebSocket;
+		if (!window.WebSocket) {
+		}
+		socket.onopen=()=>{}
+		let div = document.getElementById('hola');
+		socket.onmessage = message => {
+			div.innerText = message.data;
+		};
+		socket.onclose=()=>{
+		}
+		let input = document.getElementById("text");
+		function send(){
+			socket.send(input.value);
+		}
+	</script>
+</body>
+</html>
