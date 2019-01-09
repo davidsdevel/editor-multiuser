@@ -1,37 +1,49 @@
-const {lstatSync, readdirSync, writeFileSync, readFileSync, appendFileSync, mkdirSync, existsSync} = require("fs");
+const {lstatSync, readdirSync, writeFile, readFileSync, appendFileSync, mkdir, existsSync} = require("fs");
 const {basename, join} = require("path");
-const projects = require("./data/projects.json");
-class FileActions {
-	createProject(projectName){
-		var findId = true;
-		var id = "";
-		while (findId) {
-			for (var i = 3; i >= 0; i--) {
-				id += String(Math.floor(Math.random()*10));
-			}
 
-			if (projects.length === 0) {
-				projects.push({
-						id,
-						name:projectName
-					});
-					findId = false;
-			} else {
-				projects.forEach(e=>{
-					if (e.id !== id) {
-						projects.push({
+	function createProject(projectName){
+		return new Promise((resolve, reject) => {
+			let projects = require("./data/projects.json");
+			let findId = true;
+			let id = "";
+			
+			while (findId) {
+				for (let i = 3; i >= 0; i--) {
+					id += String(Math.floor(Math.random()*10));
+				}
+				if (projects.length === 0) {
+					projects.push({
 							id,
 							name:projectName
 						});
 						findId = false;
-					}
-				})
+				} else {
+					projects.forEach(e=>{
+						if (e.id !== id) {
+							projects.push({
+								id,
+								name:projectName
+							});
+							findId = false;
+						}
+					})
+				}
 			}
-		}
-		writeFileSync(join(__dirname, "data/projects.json"), JSON.stringify(projects));
-		mkdirSync(join(__dirname, "projects", id));
+			writeFile(join(__dirname, "data/projects.json"), JSON.stringify(projects), (err) => {
+				if (err) 
+					reject(err);
+				else {
+					mkdir(join(__dirname, "projects", id), (err) => {
+						if (err) 
+							reject(err);
+						else
+							resolve(projects);
+					});
+				}
+			});
+		})
 	}
-	dirTree(filename) {
+	function getFiles(filename) {
 		var stats = lstatSync(filename),
 		    info = {
 				path: filename,
@@ -40,7 +52,7 @@ class FileActions {
 		if (stats.isDirectory()) {
 		    info.type = "folder";
 		    info.children = readdirSync(filename).map(function(child) {
-		        return dirTree(filename + '/' + child);
+		        return getFiles(filename + '/' + child);
 		    });
 		} else {
 			let split = info.name.split(".");
@@ -70,5 +82,6 @@ class FileActions {
 		}
 		return info;
 	}
-}
-module.exports = FileActions;
+
+exports.getFiles = getFiles;
+exports.createProject = createProject;

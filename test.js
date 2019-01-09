@@ -1,5 +1,3 @@
-const FileActions = require("./FileActions");
+const {getFiles} = require("./FileActions");
 
-var FA = new FileActions();
-
-FA.createProject("Hola Mundo")
+console.log(getFiles("projects/9375"))
