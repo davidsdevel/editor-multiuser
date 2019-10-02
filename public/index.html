@@ -5,7 +5,7 @@
 	<title>Code Highlights</title>
 	<script src="/react.js"></script>
   	<script src="/react-dom.js"></script>
-  	<script src="/babel.js"></script>
+  	<script src="/babel.min.js"></script>
   	<script src="/redux.js"></script>
 
 	<script src="lib/codemirror.js"></script>
@@ -17,6 +17,8 @@
 	<script src="/store/store.js"></script>
 	<script src="/store/actionCreators.js"></script>
 	<!-- Components -->
+	<script src="/components/CreateModal.jsx" type="text/babel"></script>
+	<script src="/components/Files.jsx" type="text/babel"></script>
 	<script src="/components/Editor.jsx" type="text/babel"></script>
 	<script src="/components/Login.jsx" type="text/babel"></script>
 	<script src="/components/Dashboard.jsx" type="text/babel"></script>
@@ -26,7 +28,7 @@
 	<script type="text/babel" src="/App.jsx"></script>
 	<script type="text/babel">
 		let dom = document.getElementById("app");
-		ReactDOM.render(<App/>, dom)
+		ReactDOM.render(<App/>, dom);
 	</script>
 </body>
 </html>

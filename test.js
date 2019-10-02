@@ -1,3 +1,6 @@
-const {getFiles} = require("./FileActions");
+var edad = 86;
 
-console.log(getFiles("projects/9375"))
+if (edad > 17 || edad < 40)
+	console.log("Pasa");
+else
+	console.log("No pasa")

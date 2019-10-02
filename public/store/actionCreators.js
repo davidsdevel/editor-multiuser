@@ -1,16 +1,11 @@
-const login = (name) => {
-	return {
-		type:"LOGIN",
-		logged:true,
-		name,
-		profilePic:""
-	}
-}
-const logout = (name) => {
-	return {
-		type:"LOGOUT",
-		logged:false,
-		name:"",
-		profilePic:""
-	}
-}
+const setFile = (ID, name, content) => ({
+	type:"SET_FILE",
+	ID,
+	name,
+	content
+});
+
+const setUserID = userID => ({
+	type: "SET_USER_ID",
+	userID
+})

@@ -1,29 +1,39 @@
 function createReduxStore() {
-	let {createStore, combineReducers} = Redux;
-	let account = {
-		logged:false,
+	const {createStore, combineReducers} = Redux;
+
+	const file = {
+		ID: null,
 		name:"",
-		profilePic:""
+		content:""
 	}
-	let accountReducer = (state = account, action) => {
+	const user = {
+		userID: null
+	}
+	const fileReducer = (state = file, action) => {
 		switch(action.type) {
-			case "LOGIN":
+			case "SET_FILE":
 				return {
-					logged:true,
-					name:action.name
+					ID: action.ID,
+					name: action.name,
+					content: action.content,
 				}
-			case "LOGOUT":
-				return {
-					logged:false,
-					name:""
-				}
-				break;
 			default: return state;
 		}
 	}
-	let combinedStores = combineReducers({
-		account:accountReducer
+	const userReducer = (state = user, action) => {
+		switch(action.type) {
+			case "SET_USER_ID":
+				return {
+					userID: action.userID
+				}
+			default: return state;
+		}
+	}
+	const combinedStores = combineReducers({
+		file: fileReducer,
+		user: userReducer
 	});
+
 	return createStore(combinedStores);
 }
 

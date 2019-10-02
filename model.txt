@@ -1,0 +1,11 @@
+#projects
+name: String
+ID: String 
+
+#files
+ID: Lenght
+filename: String
+path: String
+projectID: String
+content: String
+type: String
